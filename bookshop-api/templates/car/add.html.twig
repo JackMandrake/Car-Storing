@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <h2>Ajouter un Véhicule</h2>
+
+    {{ form_start(carForm) }} {# <form method=""post"> #}
+        
+        {# form_widget(carForm) permet d'afficher tout les champs du formulaire d'un coup #}
+
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(carForm.name) }}
+                {{ form_row(carForm.nbSeat) }}
+                {{ form_row(carForm.color) }}    
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(carForm.height) }}
+                {{ form_row(carForm.width) }}
+            </div>
+        </div>
+        
+
+        <input type="submit" value="Ajouter" class="btn btn-primary">
+
+    {{ form_end(carForm) }} {# </form> #}
+</div>
+
+
+{% endblock %}

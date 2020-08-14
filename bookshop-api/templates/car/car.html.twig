@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des véhicules{% endblock %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between container">
+    <h2>Liste des Véhicules</h2>
+    <div>
+        <a href="{{ path('car_add') }}" class="btn btn-primary">Ajouter</a>
+    </div>
+</div>
+
+{% endblock %}
