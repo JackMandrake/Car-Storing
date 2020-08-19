@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+
+    <h2>Ajouter un Parking</h2>
+
+    {{ form_start(parkingForm) }} {# <form method=""post"> #}
+
+        {# form_widget(carForm) permet d'afficher tout les champs du formulaire d'un coup #}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(parkingForm.name) }}
+                {{ form_row(parkingForm.localisation) }}
+                {{ form_row(parkingForm.nbPlace) }}
+                {{ form_row(parkingForm.placeHeight) }}
+                {{ form_row(parkingForm.placeWidth) }}
+            </div>
+        </div>
+
+        <input type="submit" value="Ajouter" class="btn btn-primary">
+
+    {{ form_end(parkingForm) }} {# </form> #}
+    
+</div>
+{% endblock %}
