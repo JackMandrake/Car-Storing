@@ -12,7 +12,6 @@
 html {
   font-family: "Montserrat", sans-serif;
   width: 100vw;
-  overflow: hidden;
 }
 
 #myVideo {
@@ -20,6 +19,7 @@ html {
   bottom: 0;
   width: 100%;
   min-height: 100%;
+  position:fixed;
 }
 
 .transparent {
@@ -37,4 +37,8 @@ html {
   position: fixed;
   bottom: 0;
   mix-blend-mode: screen;
+}
+
+.fixe {
+  z-index: 3;
 }

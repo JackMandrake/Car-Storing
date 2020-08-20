@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des véhicules{% endblock %}
+
+{% block body %}
+
+<script>$( function() {
+            $( ".sortable" ).sortable({
+            receive: function( event, ui ) {
+                var idCar = ui.item.context.id;
+                var idParking = ui.item.context.parentElement.id;
+                if(idParking != null && idParking != '') {
+                    $.ajax({ 
+                        url:        '/storing/move',  
+                        type:       'POST',   
+                        dataType:   'json', 
+                        async:       true, 
+                        data:       {idCar:idCar, idParking:idParking},                    
+                        success: function(data, status) {  
+                            
+                        },  
+                        error : function(xhr, textStatus, errorThrown) {  
+                            location.reload();
+                        }  
+                    });
+                }  else {
+                    $.ajax({ 
+                        url:        '/storing/remove',  
+                        type:       'POST',   
+                        dataType:   'json', 
+                        async:       true, 
+                        data:       {idCar:idCar},                    
+                        success: function(data, status) {  
+                            
+                        },  
+                        error : function(xhr, textStatus, errorThrown) {  
+                            location.reload();
+                        }  
+                    });
+                }
+            },
+            connectWith: ".sortable"
+            }).disableSelection();
+            
+        } );</script>
+
+<div class="d-flex flex-row justify-content-between container">
+    <h2>Liste des Véhicules sans Parking</h2></br>
+    <div>
+        <a href="{{ path('car_add') }}" class="btn btn-primary">Ajouter</a>
+    </div>
+</div>
+
+<div class="list-group container">
+    <ul class="sortable row" style="min-height:50px">
+        {% for car in cars %}
+            <li class="list-group-item list-group-item-action col col-lg-2" id="{{car.id}}">{{ car.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% for parking in parkings %}
+<div class="list-group container">
+    <h3>{{parking.name}}</h3><p> Nb de places : {{parking.parkingSpace|length}}</p>
+    <ul class="sortable row" style="min-height:50px" id="{{parking.id}}">
+        {% for car in parking.cars %}
+            <li class="list-group-item list-group-item-action col col-lg-2" id="{{car.id}}">{{ car.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+{% endblock %}

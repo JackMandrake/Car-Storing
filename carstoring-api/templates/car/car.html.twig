@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des véhicules{% endblock %}
+{% block title %}Liste des véhicules{% endblock %}
 
 {% block body %}
+
+<script>$( function() {
+            $( ".sortable" ).sortable({
+            update: function( event, ui ) {console.log(ui)},
+            connectWith: ".sortable"
+            }).disableSelection();
+            
+        } );</script>
 
 <div class="d-flex flex-row justify-content-between container">
     <h2>Liste des Véhicules</h2>
@@ -10,5 +18,9 @@
         <a href="{{ path('car_add') }}" class="btn btn-primary">Ajouter</a>
     </div>
 </div>
+
+
+
+
 
 {% endblock %}

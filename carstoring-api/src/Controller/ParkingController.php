@@ -1,13 +1,14 @@
 <?php
 namespace App\Controller;
+
 use App\Entity\Parking;
 use App\DTO\ParkingDTO;
 use App\Entity\ParkingSpace;
 use App\Form\ParkingDTOType;
-use App\Form\ParkingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
 class ParkingController extends AbstractController
 {
     /**
@@ -19,10 +20,11 @@ class ParkingController extends AbstractController
             'controller_name' => 'ParkingController',
         ]);
     }
+
     /**
      * @Route("/parking/add", name="parking_add")
      */
-    public function add(Request $request)
+    public function submit(Request $request)
     {
         // Je crée un objet
         $parkingDTO = new ParkingDTO();
@@ -35,7 +37,6 @@ class ParkingController extends AbstractController
         // automatiquement le formulaire a mis a jour mon objet $tvShow
         // Si des données ont été soumises dans le formulaire
         if($form->isSubmitted() && $form->isValid()) {
-            dump($parkingDTO);
             $manager = $this->getDoctrine()->getManager();
             $parking->setName($parkingDTO->name);
             $parking->setLocalisation($parkingDTO->localisation);
