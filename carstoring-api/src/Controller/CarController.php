@@ -11,14 +11,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CarController extends AbstractController
 {
+   
     /**
      * @Route("/car", name="car")
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->query->get('search');
+
+        /** @var CarRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Car::class);
+        $cars = $repository->findAll($search);
+
         return $this->render('car/car.html.twig', [
-            'controller_name' => 'CarController',
+            "cars" => $cars,
         ]);
+    }
+
+    /**
+     * @Route("/car/{id}", name="car_view", requirements={"id"="\d+"})
+     */
+    public function view($id)
+    {
+        /** @var CarRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Car::class);
+        $car = $repository->find($id);
+        
+        return $this->render('car/view.html.twig', ["car" => $car]);
     }
 
     /**

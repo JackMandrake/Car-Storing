@@ -14,11 +14,29 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parking", name="parking")
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->query->get('search');
+
+        /** @var ParkingRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Parking::class);
+        $parkings = $repository->findAll($search);
+
         return $this->render('parking/parking.html.twig', [
-            'controller_name' => 'ParkingController',
+            "parkings" => $parkings,
         ]);
+    }
+
+    /**
+     * @Route("/parking/{id}", name="parking_view", requirements={"id"="\d+"})
+     */
+    public function view($id)
+    {
+        /** @var ParkingRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Parking::class);
+        $parking = $repository->find($id);
+        
+        return $this->render('parking/view.html.twig', ["parking" => $parking]);
     }
 
     /**
@@ -58,6 +76,59 @@ class ParkingController extends AbstractController
             'parking/add.html.twig',
             [
                 "parkingForm" => $form->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/parking/{id}/update", name="parking_update", requirements={"id"="\d+"})
+     */
+    public function update( $id, Request $request)
+    {
+        /** @var ParkingRepository $repository */
+        $repository = $this->getDoctrine()->getRepository(Parking::class);
+        $parking = $repository->find($id);
+
+        $parkingDTO = new ParkingDTO();
+        $parkingDTO->name = $parking->getName();
+        $parkingDTO->localisation = $parking->getLocalisation();
+        $parkingSpace = $parking->getParkingSpace();
+        $parkingDTO->nbPlace = count($parkingSpace);
+        if (count($parkingSpace)> 0) {
+            $parkingDTO->height = $parkingSpace[0]->getHeight();
+            $parkingDTO->width = $parkingSpace[0]->getWidth();
+        }
+
+        
+        $parkingForm = $this->createForm(ParkingDTOType::class, $parkingDTO);
+        $parkingForm->handleRequest($request);
+
+        if($parkingForm->isSubmitted() && $parkingForm->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $parking->setName($parkingDTO->name);
+            $parking->setLocalisation($parkingDTO->localisation);
+
+            foreach ($parking->getParkingSpace() as $places) {
+                $manager->remove($places);
+            } 
+            for ( $i =0; $i<$parkingDTO->nbPlace; $i++ ) {
+                $slot = new ParkingSpace();
+                $slot->setParking($parking);
+                $slot->setWidth($parkingDTO->placeWidth);
+                $slot->setHeight($parkingDTO->placeHeight);
+                $manager->persist($slot);
+            }
+
+            $manager->flush();
+            $this->addFlash("success", "Le parking a bien été modifié");
+            return $this->redirectToRoute("parking", ["id" => $parking->getId()]);
+        }
+
+        return $this->render(
+            'parking/update.html.twig',
+            [
+                "parkingForm" => $parkingForm->createView(),
+                "parking" => $parking
             ]
         );
     }

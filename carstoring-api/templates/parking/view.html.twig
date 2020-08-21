@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between mb-5 container">
+    <h2>{{ parking.name }}</h2>
+    <div>
+        <a href="{{ path('parking_update', {'id' : parking.id}) }}" class="btn btn-primary">Modifier</a>
+    </div>
+</div>
+
+<div class="container">
+<p>Localisation : {{parking.localisation}}</p>
+<p>Nombre de places : {{parking.parkingSpace|length}}</p>
+
+<h3>Véhicules Stationnés</h3></br>
+
+
+<div class="list-group container">
+    {% for car in parking.cars %}
+        <a href="{{ path('car_view', {'id': car.id}) }}" class="list-group-item list-group-item-action">
+            {{ car.name }}
+        </a>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

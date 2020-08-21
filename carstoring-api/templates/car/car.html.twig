@@ -4,14 +4,6 @@
 
 {% block body %}
 
-<script>$( function() {
-            $( ".sortable" ).sortable({
-            update: function( event, ui ) {console.log(ui)},
-            connectWith: ".sortable"
-            }).disableSelection();
-            
-        } );</script>
-
 <div class="d-flex flex-row justify-content-between container">
     <h2>Liste des Véhicules</h2>
     <div>
@@ -19,6 +11,13 @@
     </div>
 </div>
 
+<div class="list-group container">
+    {% for car in cars %}
+        <a href="{{ path('car_view', {'id': car.id}) }}" class="list-group-item list-group-item-action">
+            {{ car.name }}
+        </a>
+    {% endfor %}
+</div>
 
 
 

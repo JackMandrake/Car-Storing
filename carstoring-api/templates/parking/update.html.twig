@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="d-flex flex-row justify-content-between mb-5">
+        <h2>Modifier un parking</h2>
+        
+    </div>
+
+    {{ form_start(parkingForm) }}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(parkingForm.name) }}
+                {{ form_row(parkingForm.localisation) }}
+                {{ form_row(parkingForm.nbPlace) }}
+                {{ form_row(parkingForm.placeHeight) }}
+                {{ form_row(parkingForm.placeWidth) }}
+            </div>
+        </div>
+        <input type="submit" value="Modifier" class="btn btn-primary">
+    {{ form_end(parkingForm) }} 
+</div>
+
+{% endblock %}

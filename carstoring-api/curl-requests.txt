@@ -1,0 +1,39 @@
+METHODE POUR "CAR"
+
+"POST"
+curl -X POST "http://0.0.0.0:8080/api/cars" -H "accept: application/ld+json" -H "Content-Type: application/ld+json" -d "{\"name\":\"Mattyus\",\"nbSeat\":5,\"color\":\"#00000\",\"height\":3,\"width\":2,\"parking\":null}"
+
+"GET"
+curl -X GET "http://0.0.0.0:8080/api/cars?page=1" -H "accept: application/ld+json"
+
+"GET"
+curl -X GET "http://0.0.0.0:8080/api/cars/5" -H "accept: application/ld+json"
+
+"DELETE"
+curl -X DELETE "http://0.0.0.0:8080/api/cars/16" -H "accept: */*"
+
+"PUT"
+curl -X PUT "http://0.0.0.0:8080/api/cars/6" -H "accept: application/ld+json" -H "Content-Type: application/ld+json" -d "{\"name\":\"The Mystery Machine\",\"nbSeat\":5,\"color\":\"#10f229\",\"height\":3,\"width\":2,\"parking\":null}"
+
+"PATCH"
+curl -X PATCH "http://0.0.0.0:8080/api/cars/17" -H "accept: application/ld+json" -H "Content-Type: application/merge-patch+json" -d "{\"name\":\"Mattyus Mobile\",\"nbSeat\":5,\"color\":\"#00000\",\"height\":4,\"width\":2,\"parking\":null}"
+
+METHODE POUR "PARKING"
+
+"GET"
+curl -X GET "http://0.0.0.0:8080/api/parkings?page=1" -H "accept: application/ld+json"
+
+"GET"
+curl -X GET "http://0.0.0.0:8080/api/parkings/15" -H "accept: application/ld+json"
+
+"POST"
+curl -X POST "http://0.0.0.0:8080/api/parkings" -H "accept: application/ld+json" -H "Content-Type: application/ld+json" -d "{\"name\":\"Parking Jouet\",\"localisation\":\"Pole Nord\",\"cars\":[],\"parkingSpace\":[]}"
+
+"DELETE"
+curl -X DELETE "http://0.0.0.0:8080/api/parkings/17" -H "accept: */*"
+
+"PUT"
+curl -X PUT "http://0.0.0.0:8080/api/parkings/18" -H "accept: application/ld+json" -H "Content-Type: application/ld+json" -d "{\"name\":\"Par King Jouet\",\"localisation\":\"A côté de Jouet Club\",\"cars\":[],\"parkingSpace\":[]}"
+
+"PATCH"
+curl -X PATCH "http://0.0.0.0:8080/api/parkings/18" -H "accept: application/ld+json" -H "Content-Type: application/merge-patch+json" -d "{\"name\":\"Parking Jouet\",\"localisation\":\"En face de Jouet Club\",\"cars\":[],\"parkingSpace\":[]}"

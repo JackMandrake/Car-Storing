@@ -52,7 +52,7 @@
 </div>
 
 <div class="list-group container">
-    <ul class="sortable row" style="min-height:50px">
+    <ul class="sortable row container" style="min-height:50px">
         {% for car in cars %}
             <li class="list-group-item list-group-item-action col col-lg-2" id="{{car.id}}">{{ car.name }}</li>
         {% endfor %}
@@ -61,8 +61,8 @@
 
 {% for parking in parkings %}
 <div class="list-group container">
-    <h3>{{parking.name}}</h3><p> Nb de places : {{parking.parkingSpace|length}}</p>
-    <ul class="sortable row" style="min-height:50px" id="{{parking.id}}">
+    <h3>{{parking.name}}</h3><p> Nombre de places : {{parking.parkingSpace|length}}</p>
+    <ul class="sortable row container" style="min-height:50px" id="{{parking.id}}">
         {% for car in parking.cars %}
             <li class="list-group-item list-group-item-action col col-lg-2" id="{{car.id}}">{{ car.name }}</li>
         {% endfor %}

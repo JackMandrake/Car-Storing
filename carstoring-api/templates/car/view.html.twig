@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="d-flex flex-row justify-content-between mb-5 container">
+    <h2>{{ car.name }}</h2>
+    <div>
+       <a href="{{ path('car_add') }}" class="btn btn-primary">Ajouter</a>
+    </div>
+</div>
+
+
+
+<div class="list-group container">
+    <p>Nombre de places : {{car.nbSeat}}</p>
+    <p>Longueur : {{car.height}}m</p>
+    <p>Largueur : {{car.width}}m</p>
+</div>
+
+
+{% endblock %}

@@ -25,7 +25,7 @@ class StoringController extends AbstractController
         $parkingRepository = $this->getDoctrine()->getRepository(Parking::class);
         $parkings = $parkingRepository->findAll();
 
-        return $this->render('storing/index.html.twig', [
+        return $this->render('storing/storing.html.twig', [
             'cars' => $cars,
             'parkings' => $parkings
         ]);

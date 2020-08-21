@@ -7,7 +7,7 @@ use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(collectionOperations={"get","post"})     
  * @ORM\Entity(repositoryClass=CarRepository::class)
  */
 class Car

@@ -11,4 +11,12 @@
     </div>
 </div>
 
+<div class="list-group container">
+    {% for parking in parkings %}
+        <a href="{{ path('parking_view', {'id': parking.id}) }}" class="list-group-item list-group-item-action">
+            {{ parking.name }}
+        </a>
+    {% endfor %}
+</div>
+
 {% endblock %}
